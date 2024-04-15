@@ -1,0 +1,36 @@
+﻿@model LedighetApplication.ViewModels.UserApplicationsViewModel
+
+<h2>Leave Applications for @Model.User.FirstName @Model.User.LastName</h2>
+
+@if (Model.Applications.Any())
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Leave Type</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var application in Model.Applications)
+        {
+            <tr>
+                <td>@application.LeaveType.Name</td>
+                <td>@application.Description</td>
+                <td>@application.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@application.EndDate.ToString("yyyy-MM-dd")</td>
+                <td>@application.CreatedAt.ToString("yyyy-MM-dd")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+else
+{
+<p>No leave applications found for @Model.User.FirstName @Model.User.LastName.</p>
+}
+
+<a asp-action="Index" asp-controller="Admin" class="btn btn-primary">Back to Dashboard</a>

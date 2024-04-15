@@ -1,0 +1,46 @@
+﻿@model IEnumerable<LedighetApplication.Models.LeaveApplication>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (Model.Count() == 0)
+{
+    <p>No leave applications found.</p>
+}
+else
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Description</th>
+            <th>Leave Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Employee.FirstName @item.Employee.LastName</td>
+                <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.Description</td>
+                <td>@item.LeaveType.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.LeaveApplicationId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.LeaveApplicationId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.LeaveApplicationId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create">Create New</a>
+}

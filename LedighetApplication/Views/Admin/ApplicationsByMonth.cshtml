@@ -1,0 +1,41 @@
+﻿@model IEnumerable<LedighetApplication.ViewModels.LeaveApplicationDaysModel>
+
+@{
+    ViewData["Title"] = "Leave Applications by Month";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Employee Name</th>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Total Days</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var application in Model)
+            {
+                var totalDays = (application.EndDate - application.StartDate).Days + 1;  // Calculate total days including the end date
+                <tr>
+                    <td>@application.FirstName @application.LastName</td>
+                    <td>@application.LeaveTypeName</td>
+                    <td>@application.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>@application.EndDate.ToString("yyyy-MM-dd")</td>
+                    <td>@totalDays</td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No leave applications found for the selected month.</p>
+}
+
+<a asp-action="Index" asp-controller="Admin" class="btn btn-primary">Back to Dashboard</a>

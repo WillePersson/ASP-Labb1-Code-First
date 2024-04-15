@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h1>Admin Dashboard</h1>
+
+<h2>Search User by Name</h2>
+<form asp-action="DisplayUserApplications" method="post">
+    <div class="form-group">
+        <label>Select User:</label>
+        <select name="userId" asp-items="ViewBag.Users" class="form-control" required>
+            <option value="">Select a user</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">View Applications</button>
+</form>
+
+<h2>Search Applications by Month</h2>
+<form asp-action="SearchByMonth" method="post">
+    <div class="form-group">
+        <label for="year">Year:</label>
+        <select name="year" id="year" class="form-control">
+            @for (int year = DateTime.Now.Year - 10; year <= DateTime.Now.Year; year++)
+            {
+                <option value="@year">@year</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="month">Month:</label>
+        <select name="month" id="month" class="form-control">
+            @for (int month = 1; month <= 12; month++)
+            {
+                <option value="@month">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month)</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
